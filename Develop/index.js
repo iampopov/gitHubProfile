@@ -237,37 +237,37 @@ function generateHTML(data) {
       <div class="container">
       <div class="wrapper">
           <div class="photo-header">
-              <img src="${data.avatar_url}" alt="picture of ${data.name}">
-              <h1>Hi</h1>
-              <h2>My Name is ${data.name}</h2>
-              <div class="row links">
-                  <a class="col" target="_blank" href="http://maps.google.com/maps?q=${data.location}"><i class="fas fa-map-marked-alt">${data.location}</i></a>
-                  <a class="col" target="_blank" href="${data.html_url}"><i class="fab fa-github"> GitHub</i></a>
-                  <a class="col" target="_blank" href="${data.blog}"><i class="fas fa-blog"> Blog</i></a>
+              <img class="nav-link" src="${data.avatar_url}" alt="avatar of ${data.name}">
+              <h1>Hi!</h1>
+              <h2>My Name is ${data.name}!</h2>
+              <div class="links-nav">
+                  <a class="nav-link" href="http://maps.google.com/maps?q=${data.location}"><i class="fas fa-location-arrow">${data.location}</i></a>
+                  <a class="nav-link" href="${data.html_url}"><i class="fab fa-github-square">Hub</i></a>
+                  <a class="nav-link" href="${data.blog}"><i class="fab fa-blogger">log</i></a>
               </div>
           </div>
       </div> 
       <div class="container">   
-          <h4>${data.bio}</h4>
+          <h6>${data.bio}</h6>
       </div>    
               
           <div class="row">
               <div class="col card">
-                  <h2>Public Repositories</h2>
+                  <h4>Public Repositories</h4>
                   <h5>${data.public_repos}</h5>
               </div>
               <div class="col card">
-                  <h2>Followers</h2>
+                  <h4>Followers</h4>
                   <h5>${data.followers}</h5>
               </div>
           </div> 
           <div class="row">
               <div class="col card">
-                  <h2>GitHub Stars</h2>
+                  <h4>GitHub Stars</h4>
                   <h5>${data.public_gists}</h5>
               </div>
               <div class="col card">
-                  <h2>Following</h2>
+                  <h4>Following</h4>
                   <h5>${data.following}</h5>
               </div>
           </div> 
