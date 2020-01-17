@@ -59,7 +59,9 @@ function promptUser () {
             public_repos: response.data.public_repos,
             followers: response.data.followers,
             following: response.data.following,
-            public_gists: response.data.public_gistss}
+            public_gists: response.data.public_gists,
+            bio: response.data.bio,
+            avatar_url: response.data.avatar_url}
             data.color = color;
             
             //calling generateHTML here
@@ -227,19 +229,51 @@ function generateHTML(data) {
           </style>
       </head>
       <body>
-        
+      <div class="container">
+      <div class="wrapper">
+          <div class="photo-header">
+              <img src="${data.avatar_url}" alt="picture of ${data.name}">
+              <h1>Hi</h1>
+              <h2>My Name is ${data.name}</h2>
+              <div class="row links">
+                  <a class="col" target="_blank" href="http://maps.google.com/maps?q=${data.location}"><i class="fas fa-map-marked-alt">${data.location}</i></a>
+                  <a class="col" target="_blank" href="${data.html_url}"><i class="fab fa-github"> GitHub</i></a>
+                  <a class="col" target="_blank" href="${data.blog}"><i class="fas fa-blog"> Blog</i></a>
+              </div>
+          </div>
+      </div> 
+      <div class="container">   
+          <h4>${data.bio}</h4>
+      </div>    
+              
+          <div class="row">
+              <div class="col card">
+                  <h2>Public Repositories</h2>
+                  <h5>${data.public_repos}</h5>
+              </div>
+              <div class="col card">
+                  <h2>Followers</h2>
+                  <h5>${data.followers}</h5>
+              </div>
+          </div> 
+          <div class="row">
+              <div class="col card">
+                  <h2>GitHub Stars</h2>
+                  <h5>${data.public_gists}</h5>
+              </div>
+              <div class="col card">
+                  <h2>Following</h2>
+                  <h5>${data.following}</h5>
+              </div>
+          </div> 
+      <footer class="wrapper"></footer>
+       </div> 
       </body>
     </html>`
 }
 
 async function init() {
   try {
-    // IVAN: moved the code that used to be here up into promptUser, where we have access to what we need...
-    //   const data = await promptUser();
-      
-    //   const html = generateHTML(data);
-
-    // kicking off promptUser on load
     promptUser();
 
   } catch (err) {
@@ -248,31 +282,4 @@ async function init() {
 }
 
 init();
-// fs.writeFile("repo.txt", gitArray.map(function(item) {
-//     return item.name
-//   }), err => {
-//     if (err) throw err;
-//     return console.log('saved');
-//   }
-//   )
-
-
-// function writeToFile(fileName, data) {
- 
-// }
-
-// function init() {inquirer
-//     .prompt([questions]).then(function({username}) {
-//         const queryUrl = `https://api.github.com/users/${username}`;
-//         axios 
-//           .get(queryUrl)
-//           .then(function(res) {
-//             let gitArray = res.data;
-            
-//             pdf.create(html, options).toFile('')
-    
-//           }) 
-    
-//     })}
-
 
