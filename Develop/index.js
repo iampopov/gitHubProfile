@@ -19,7 +19,7 @@ const colors = {
     wrapperBackground: "#E6E1C3",
     headerBackground: "#C1C72C",
     headerColor: "black",
-    photoBorderColor: "#black"
+    photoBorderColor: "black"
   },
   blue: {
     wrapperBackground: "#5F64D3",
@@ -41,16 +41,14 @@ const colors = {
   }
 };
 
-
-
-
 function promptUser () {
     return inquirer
     .prompt(questions)
     .then(function({username, color}) {
         const queryUrl = `https://api.github.com/users/${username}`;
         
-        axios.get(queryUrl).then(response => {
+        //made the callback below 'async' so we could use await inside it
+        axios.get(queryUrl).then(async (response) => {
           
           const data = {
             name: response.data.name,
@@ -64,18 +62,24 @@ function promptUser () {
             public_gists: response.data.public_gistss}
             data.color = color;
             
-            generateHTML(data);
+            //calling generateHTML here
+            const html = generateHTML(data);
+
+            // since we have access to 'html' here, calling the writeFileAsync and awaiting it...
+            await writeFileAsync("index.html", html);
+  
+            
+            console.log("Success!")// Success!
           })
     })
   }
 
 
 // function writeToFile(fileName, data) {
-//   generateHTML();
 // }
 
 function generateHTML(data) {
-  //console.log(data);
+  console.log("data obj in generate", data);
   return `<!DOCTYPE html>
     <html lang="en">
       <head>
@@ -230,14 +234,13 @@ function generateHTML(data) {
 
 async function init() {
   try {
+    // IVAN: moved the code that used to be here up into promptUser, where we have access to what we need...
+    //   const data = await promptUser();
       
-      const data = await promptUser();
-      
-      const html = generateHTML(data);
+    //   const html = generateHTML(data);
 
-      await writeFileAsync("index.html", html);
-  
-      console.log("Success!")
+    // kicking off promptUser on load
+    promptUser();
 
   } catch (err) {
       console.log(err)
