@@ -1,7 +1,9 @@
 const axios = require("axios");
 const inquirer = require("inquirer");
-const pdf = require('html-pdf');
 const fs = require('fs');
+const pdf = require('html-pdf');
+const html = fs.readFileSync('./index.html', 'utf8');
+const options = {format: 'Letter'};
 const util = require("util");
 const writeFileAsync = util.promisify(fs.writeFile);
 const questions = [{
@@ -69,8 +71,11 @@ function promptUser () {
 
             // since we have access to 'html' here, calling the writeFileAsync and awaiting it...
             await writeFileAsync("index.html", html);
-  
             
+            await pdf.create(html, options).toFile(`./${response.data.name}.pdf`, function(err, res){
+              if (err) return console.log(err);
+              console.log(res);
+            })
             console.log("Success!")// Success!
           })
     })
